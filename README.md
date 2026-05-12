@@ -90,7 +90,8 @@ The site runs without a database, without Resend, without Upstash, and without T
 | Var | Purpose | Required |
 | --- | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Canonical site URL (metadata, sitemap, OG) | Recommended |
-| `DATABASE_URL` | Postgres connection string | For lead persistence |
+| `DATABASE_URL` | Runtime Postgres connection string (Supabase pooled recommended in prod) | For lead persistence |
+| `DIRECT_DATABASE_URL` | Direct Postgres connection string used by Prisma for migrations/db push | Recommended with pooled runtime URL |
 | `RESEND_API_KEY` | Resend transactional email | For lead notifications |
 | `LEAD_NOTIFICATION_FROM` | `Name <addr>` sender | With Resend |
 | `LEAD_NOTIFICATION_TO` | Where lead emails arrive | With Resend |
