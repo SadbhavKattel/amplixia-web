@@ -1,0 +1,98 @@
+// Amplixia data model.
+// Lean by design — only what we own as a system of record.
+// CRMs (HubSpot/Pipedrive/Attio) sync from these tables, not the other way.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+enum LeadSource {
+  CONTACT_FORM
+  CONSULTATION_BOOKING
+  NEWSLETTER
+  REFERRAL
+  OTHER
+}
+
+enum LeadStatus {
+  NEW
+  QUALIFYING
+  ENGAGED
+  WON
+  LOST
+  SPAM
+}
+
+enum ProjectType {
+  AI_AUTOMATION
+  AI_AGENTS
+  SAAS_DEVELOPMENT
+  WEB_DEVELOPMENT
+  CONSULTING
+  DATA_ANALYTICS
+  INTEGRATIONS
+  OTHER
+}
+
+enum BudgetBand {
+  UNDER_10K
+  TEN_TO_25K
+  TWENTY_FIVE_TO_50K
+  FIFTY_TO_100K
+  HUNDRED_PLUS
+  UNDISCLOSED
+}
+
+enum Timeline {
+  ASAP
+  ONE_TO_THREE_MONTHS
+  THREE_TO_SIX_MONTHS
+  SIX_PLUS_MONTHS
+  EXPLORING
+}
+
+model Lead {
+  id          String       @id @default(cuid())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  source      LeadSource
+  status      LeadStatus   @default(NEW)
+
+  name        String
+  email       String
+  phone       String?
+  company     String?
+  website     String?
+
+  projectType ProjectType?
+  budget      BudgetBand?
+  timeline    Timeline?
+  message     String       @db.Text
+
+  // Operational metadata — useful for abuse triage and attribution.
+  ipHash      String?
+  userAgent   String?
+  referrer    String?
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+
+  @@index([createdAt])
+  @@index([status])
+  @@index([email])
+}
+
+model NewsletterSubscriber {
+  id         String   @id @default(cuid())
+  createdAt  DateTime @default(now())
+  email      String   @unique
+  confirmed  Boolean  @default(false)
+  unsubAt    DateTime?
+}
