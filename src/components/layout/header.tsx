@@ -25,6 +25,9 @@ export function Header() {
     setOpen(false);
   }, [pathname]);
 
+  // The marketing landing page renders its own header/nav. (Hooks must run before this early return.)
+  if (pathname === "/") return null;
+
   return (
     <header
       className={cn(

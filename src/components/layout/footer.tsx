@@ -1,10 +1,17 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Logo } from "./logo";
 import { footerNav } from "@/content/nav";
 import { siteConfig } from "@/lib/seo";
 
 export function Footer() {
+  const pathname = usePathname();
   const year = new Date().getFullYear();
+
+  // The marketing landing page renders its own footer.
+  if (pathname === "/") return null;
 
   return (
     <footer className="border-t border-border bg-bg-subtle/40">

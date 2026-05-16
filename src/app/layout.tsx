@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Roboto, JetBrains_Mono, Playfair_Display } from "next/font/google";
+import { Roboto, JetBrains_Mono, Playfair_Display, Fraunces, Manrope } from "next/font/google";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { organizationJsonLd, pageMetadata, webSiteJsonLd } from "@/lib/seo";
@@ -24,6 +24,20 @@ const jetBrains = JetBrains_Mono({
   display: "swap",
 });
 
+// Marketing landing page fonts (used by app/page.tsx)
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+  axes: ["opsz"],
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   ...pageMetadata(),
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
@@ -40,7 +54,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${roboto.variable} ${playfair.variable} ${jetBrains.variable}`}>
+    <html lang="en" className={`${roboto.variable} ${playfair.variable} ${jetBrains.variable} ${fraunces.variable} ${manrope.variable}`}>
       <body className="min-h-dvh flex flex-col antialiased">
         <a
           href="#main"
