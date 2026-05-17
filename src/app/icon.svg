@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Amplixia">
+  <defs>
+    <linearGradient id="amp-brand" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b1d8a" />
+      <stop offset="45%" stop-color="#2e5bff" />
+      <stop offset="100%" stop-color="#7dc0ff" />
+    </linearGradient>
+    <linearGradient id="amp-brand-2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5a3eb8" />
+      <stop offset="55%" stop-color="#3b6dff" />
+      <stop offset="100%" stop-color="#9fd6ff" />
+    </linearGradient>
+  </defs>
+
+  <!-- Letter A: two thick slanted bars meeting at top, no crossbar (arrow plays that role) -->
+  <g fill="url(#amp-brand)">
+    <!-- Left bar (bottom-left → apex) -->
+    <path d="M 38 184 L 64 184 L 108 38 L 92 26 Z" />
+    <!-- Right bar (apex → bottom-right) -->
+    <path d="M 108 26 L 162 184 L 188 184 L 124 26 Z" />
+  </g>
+
+  <!-- Arrow swoosh through the A, exiting upper-right -->
+  <g stroke="url(#amp-brand-2)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Curved arrow body -->
+    <path d="M 46 150 C 80 130, 110 110, 150 70" stroke-width="11" />
+  </g>
+  <!-- Arrowhead (filled triangle) -->
+  <polygon points="142 52, 178 38, 166 78" fill="url(#amp-brand-2)" />
+</svg>
