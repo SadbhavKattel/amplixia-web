@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 110" role="img" aria-label="amplixia">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 100" role="img" aria-label="amplixia">
   <defs>
     <linearGradient id="amplixia-x-grad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#2e5bff" />
@@ -6,29 +6,13 @@
       <stop offset="100%" stop-color="#8a2be2" />
     </linearGradient>
   </defs>
-  <!-- "ampli" -->
   <text
     x="0"
-    y="84"
+    y="78"
     font-family="'Manrope', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif"
     font-weight="700"
-    font-size="92"
+    font-size="88"
     letter-spacing="-3"
     fill="#ffffff"
-  >ampli</text>
-  <!-- Stylised X mark, replacing the "x" glyph -->
-  <g transform="translate(258, 26)">
-    <path d="M 4 4 L 52 60" stroke="url(#amplixia-x-grad)" stroke-width="16" stroke-linecap="round" />
-    <path d="M 52 4 L 4 60" stroke="url(#amplixia-x-grad)" stroke-width="16" stroke-linecap="round" />
-  </g>
-  <!-- "ia" -->
-  <text
-    x="328"
-    y="84"
-    font-family="'Manrope', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif"
-    font-weight="700"
-    font-size="92"
-    letter-spacing="-3"
-    fill="#ffffff"
-  >ia</text>
+  >ampli<tspan font-weight="800" fill="url(#amplixia-x-grad)">x</tspan>ia</text>
 </svg>
