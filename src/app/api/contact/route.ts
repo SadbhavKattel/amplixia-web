@@ -6,9 +6,9 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
-    const { name, business, details, budget } = await req.json();
+    const { name, email, business, details, budget } = await req.json();
 
-    if (!name || !business || !details || !budget) {
+    if (!name || !email || !business || !details || !budget) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
@@ -16,9 +16,11 @@ export async function POST(req: Request) {
     const data = await resend.emails.send({
       from: 'Contact Form <onboarding@resend.dev>',
       to: ['services@amplixia.com'],
+      reply_to: email,
       subject: `${business} - ${name}`,
       html: `
         <h2>New Contact Form Submission</h2>
+        <p><strong>Email:</strong> ${email}</p>
         <p><strong>Budget:</strong> ${budget}</p>
         <br/>
         <h3>Project Details:</h3>

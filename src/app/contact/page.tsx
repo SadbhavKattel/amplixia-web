@@ -26,6 +26,7 @@ export default function ContactPage() {
 
                 const form = e.currentTarget as HTMLFormElement;
                 const name = (form.elements.namedItem("name") as HTMLInputElement).value;
+                const email = (form.elements.namedItem("email") as HTMLInputElement).value;
                 const business = (form.elements.namedItem("business") as HTMLInputElement).value;
                 const details = (form.elements.namedItem("details") as HTMLTextAreaElement).value;
                 const budget = (form.elements.namedItem("budget") as HTMLInputElement).value;
@@ -34,7 +35,7 @@ export default function ContactPage() {
                   const res = await fetch("/api/contact", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ name, business, details, budget }),
+                    body: JSON.stringify({ name, email, business, details, budget }),
                   });
 
                   if (res.ok) {
@@ -55,6 +56,10 @@ export default function ContactPage() {
               <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                 <label htmlFor="name" style={{ fontSize: "0.9rem", color: "var(--text-dim)" }}>Your Name</label>
                 <input id="name" name="name" type="text" required placeholder="John Doe" style={{ padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid var(--border)", background: "rgba(255,255,255,0.03)", color: "var(--text)", width: "100%" }} />
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                <label htmlFor="email" style={{ fontSize: "0.9rem", color: "var(--text-dim)" }}>Your Email</label>
+                <input id="email" name="email" type="email" required placeholder="you@example.com" style={{ padding: "0.75rem", borderRadius: "0.5rem", border: "1px solid var(--border)", background: "rgba(255,255,255,0.03)", color: "var(--text)", width: "100%" }} />
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                 <label htmlFor="business" style={{ fontSize: "0.9rem", color: "var(--text-dim)" }}>Type of Business</label>
