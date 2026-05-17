@@ -15,3 +15,4 @@ coverage
 .turbo
 .vercel
 next-env.d.ts
+instructions.md

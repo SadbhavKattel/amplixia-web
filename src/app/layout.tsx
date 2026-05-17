@@ -54,8 +54,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${roboto.variable} ${playfair.variable} ${jetBrains.variable} ${fraunces.variable} ${manrope.variable}`}>
-      <body className="min-h-dvh flex flex-col antialiased">
+    <html lang="en" className={`${roboto.variable} ${playfair.variable} ${jetBrains.variable} ${fraunces.variable} ${manrope.variable}`} suppressHydrationWarning>
+      <body className="min-h-dvh flex flex-col antialiased" suppressHydrationWarning>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-md focus:bg-fg focus:px-3 focus:py-2 focus:text-sm focus:text-bg"

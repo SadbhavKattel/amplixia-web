@@ -468,7 +468,8 @@
     text-transform: uppercase;
     z-index: 2;
   }
-  .amplixia-landing .case-.case-body h3 { margin-bottom: 0.75rem; }
+  .amplixia-landing .case-body { padding: 1.5rem; }
+  .amplixia-landing .case-body h3 { margin-bottom: 0.75rem; }
   .amplixia-landing .case-metric {
     font-family: 'Fraunces', serif;
     font-size: 2rem;
@@ -642,7 +643,8 @@
   }
   .amplixia-landing .insight-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
   .amplixia-landing .insight-card:hover .insight-img img { transform: scale(1.05); }
-  .amplixia-landing .insight-.insight-meta {
+  .amplixia-landing .insight-body { padding: 1.5rem; }
+  .amplixia-landing .insight-meta {
     display: flex;
     gap: 1rem;
     font-size: 0.75rem;

@@ -17,7 +17,7 @@
     fill="#ffffff"
   >ampli</text>
   <!-- Custom X: two crossing filled parallelograms. No strokes = no gap at intersection. -->
-  <g transform="translate(208, 22)">
+  <g transform="translate(214, 22)">
     <!-- Back stroke (top-left → bottom-right), slight opacity to suggest depth -->
     <path d="M 0 5 L 11 0 L 56 51 L 45 56 Z" fill="url(#amplixia-x-grad)" opacity="0.88" />
     <!-- Front stroke (top-right → bottom-left), drawn on top — no gap possible -->

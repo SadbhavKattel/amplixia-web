@@ -220,7 +220,7 @@ export function ContactForm({
           {...register("consent", { required: "Please accept to proceed" })}
         />
         <label htmlFor="consent" className="text-sm text-fg-muted">
-          OK to contact me about this. We won't share your info with anyone.
+          OK to contact us about this. We won't share your info with anyone.
         </label>
       </div>
       <FieldError message={errors.consent?.message} />

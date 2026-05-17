@@ -25,8 +25,8 @@ export function Header() {
     setOpen(false);
   }, [pathname]);
 
-  // The marketing landing page renders its own header/nav. (Hooks must run before this early return.)
-  if (pathname === "/") return null;
+  // Hide global header on landing, blog, and contact pages
+  if (pathname === "/" || pathname.startsWith("/blog") || pathname.startsWith("/contact")) return null;
 
   return (
     <header
