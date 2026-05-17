@@ -38,7 +38,7 @@ export default function HomePage() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Reveal on scroll
+  // Reveal on scroll (covers all reveal variants)
   React.useEffect(() => {
     const io = new IntersectionObserver(
       (entries) => {
@@ -49,10 +49,34 @@ export default function HomePage() {
           }
         });
       },
-      { threshold: 0.08 },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
     );
-    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+    document
+      .querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-text, .reveal-stagger")
+      .forEach((el) => io.observe(el));
     return () => io.disconnect();
+  }, []);
+
+  // Subtle parallax on ambient orbs
+  React.useEffect(() => {
+    const orbs = document.querySelectorAll<HTMLElement>(".orb");
+    if (!orbs.length) return;
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        orbs.forEach((o, i) => {
+          const speed = 0.06 + i * 0.04;
+          o.style.transform = `translate3d(0, ${y * speed}px, 0)`;
+        });
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
   // Spotlight on service cards
@@ -223,7 +247,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section style={{ padding: "5rem 0" }}>
+      <section style={{ padding: "3rem 0 4rem" }}>
         <div className="container">
           <div className="testimonial reveal">
             <p className="testimonial-quote">
@@ -248,9 +272,9 @@ export default function HomePage() {
             <h2>What we&apos;ve shipped so far.</h2>
             <p>A small slate of projects — but each one done carefully, end to end.</p>
           </div>
-          <div className="cases-grid">
+          <div className="cases-grid reveal-stagger">
             {cases.map((c, i) => (
-              <div className="case-card reveal" key={i}>
+              <div className="case-card" style={{ ["--i" as string]: i } as React.CSSProperties} key={i}>
                 <div className="case-img">
                   <span className="case-tag">{c.tag}</span>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -275,8 +299,8 @@ export default function HomePage() {
             <h2>Three ways we can help.</h2>
             <p>Pick one, or combine them. Every project is hands-on and shipped quickly.</p>
           </div>
-          <div className="services-grid">
-            <div className="service-card reveal">
+          <div className="services-grid reveal-stagger">
+            <div className="service-card" style={{ ["--i" as string]: 0 } as React.CSSProperties}>
               <div className="service-num">01 / BRAND SITES</div>
               <div className="service-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18M9 21V9" /></svg>
@@ -289,7 +313,7 @@ export default function HomePage() {
                 <li>Live in 2–4 weeks</li>
               </ul>
             </div>
-            <div className="service-card reveal">
+            <div className="service-card" style={{ ["--i" as string]: 1 } as React.CSSProperties}>
               <div className="service-num">02 / AI TUTORING</div>
               <div className="service-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" /></svg>
@@ -302,7 +326,7 @@ export default function HomePage() {
                 <li>Parent-friendly progress</li>
               </ul>
             </div>
-            <div className="service-card reveal">
+            <div className="service-card" style={{ ["--i" as string]: 2 } as React.CSSProperties}>
               <div className="service-num">03 / AUTOMATION</div>
               <div className="service-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1.1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" /></svg>
@@ -322,7 +346,7 @@ export default function HomePage() {
       <section id="why">
         <div className="container">
           <div className="why-grid">
-            <div className="why-text reveal">
+            <div className="why-text reveal-left">
               <span className="label">Why Amplixia</span>
               <h2 style={{ marginTop: "1.5rem" }}>A small studio, <span className="serif-italic">built to ship.</span></h2>
               <p>Amplixia is an early-stage studio. Right now it&apos;s a founder and a focused craft: build modern brand sites and useful AI tools — quickly, carefully, and without the agency markup.</p>
@@ -331,9 +355,9 @@ export default function HomePage() {
                 <span className="why-pullquote-attr">— Sadbhav Kattel, Founder</span>
               </p>
             </div>
-            <div className="why-stats reveal">
+            <div className="why-stats reveal-stagger reveal-right">
               {stats.map((s, i) => (
-                <div className="stat-card" key={i}>
+                <div className="stat-card" style={{ ["--i" as string]: i } as React.CSSProperties} key={i}>
                   <div className="stat-num">{s.num}</div>
                   <div className="stat-label">{s.label}</div>
                   <div className="stat-desc">{s.desc}</div>
@@ -350,9 +374,9 @@ export default function HomePage() {
             <span className="label">Who we work with</span>
             <h2>Built for the people we like working with.</h2>
           </div>
-          <div className="audience-grid">
+          <div className="audience-grid reveal-stagger">
             {audiences.map((a, i) => (
-              <div className="audience-card reveal" key={i}>
+              <div className="audience-card" style={{ ["--i" as string]: i } as React.CSSProperties} key={i}>
                 <h4>{a.h}</h4>
                 <p>{a.p}</p>
                 <span className="audience-arrow">→</span>
@@ -368,9 +392,9 @@ export default function HomePage() {
             <span className="label">Process</span>
             <h2>How a project runs.</h2>
           </div>
-          <div className="process-grid">
+          <div className="process-grid reveal-stagger">
             {process.map((s, i) => (
-              <div className="process-step reveal" key={i}>
+              <div className="process-step" style={{ ["--i" as string]: i } as React.CSSProperties} key={i}>
                 <div className="process-num">{s.n}</div>
                 <h4>{s.h}</h4>
                 <p>{s.p}</p>
@@ -386,9 +410,9 @@ export default function HomePage() {
             <span className="label">Insights</span>
             <h2>From the lab.</h2>
           </div>
-          <div className="insights-grid">
+          <div className="insights-grid reveal-stagger">
             {insights.map((a, i) => (
-              <article className="insight-card reveal" key={i}>
+              <article className="insight-card" style={{ ["--i" as string]: i } as React.CSSProperties} key={i}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <div className="insight-img"><img src={a.img} alt="" /></div>
                 <div className="insight-body">
@@ -402,13 +426,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section style={{ padding: "2rem 0 0" }}>
+      <section style={{ padding: "1rem 0 0" }}>
         <div className="container">
           <div className="wordmark">AMPLIXIA</div>
         </div>
       </section>
 
-      <section id="contact" style={{ padding: "4rem 0 7rem" }}>
+      <section id="contact" style={{ padding: "2rem 0 5rem" }}>
         <div className="container">
           <div className="cta-section reveal">
             <span className="label">Let&apos;s talk</span>
