@@ -4,6 +4,29 @@ import * as React from "react";
 import "./landing.css";
 
 export default function HomePage() {
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  // Lock body scroll when mobile menu is open
+  React.useEffect(() => {
+    if (mobileOpen) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }
+  }, [mobileOpen]);
+
+  // Close mobile menu on Escape
+  React.useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [mobileOpen]);
+
   // Navbar scroll state
   React.useEffect(() => {
     const nav = document.getElementById("nav");
@@ -115,7 +138,7 @@ export default function HomePage() {
 
       <nav className="nav" id="nav">
         <div className="container nav-inner">
-          <a href="#" className="logo">
+          <a href="#" className="logo" onClick={() => setMobileOpen(false)}>
             <span className="logo-dot" />
             Amplixia
           </a>
@@ -126,11 +149,52 @@ export default function HomePage() {
             <li><a href="#insights">Insights</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
-          <a href="#contact" className="btn btn-primary">
+          <a href="#contact" className="btn btn-primary nav-cta-desktop">
             Book a call <span className="btn-arrow">→</span>
           </a>
+          <button
+            type="button"
+            className={`hamburger ${mobileOpen ? "is-open" : ""}`}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMobileOpen((v) => !v)}
+          >
+            <span /><span /><span />
+          </button>
         </div>
       </nav>
+
+      <div
+        className={`mobile-menu ${mobileOpen ? "is-open" : ""}`}
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden={!mobileOpen}
+      >
+        <ul className="mobile-menu-links">
+          <li><a href="#work"     onClick={() => setMobileOpen(false)}>Work</a></li>
+          <li><a href="#services" onClick={() => setMobileOpen(false)}>Services</a></li>
+          <li><a href="#process"  onClick={() => setMobileOpen(false)}>Process</a></li>
+          <li><a href="#insights" onClick={() => setMobileOpen(false)}>Insights</a></li>
+          <li><a href="#contact"  onClick={() => setMobileOpen(false)}>Contact</a></li>
+        </ul>
+        <a
+          href="#contact"
+          className="btn btn-primary mobile-cta"
+          onClick={() => setMobileOpen(false)}
+        >
+          Book a call <span className="btn-arrow">→</span>
+        </a>
+        <div className="mobile-menu-foot">
+          <a href="mailto:hello@amplixia.ai">hello@amplixia.ai</a>
+        </div>
+      </div>
+      <div
+        className={`mobile-backdrop ${mobileOpen ? "is-open" : ""}`}
+        onClick={() => setMobileOpen(false)}
+        aria-hidden="true"
+      />
 
       <header className="hero">
         <div className="container hero-content">

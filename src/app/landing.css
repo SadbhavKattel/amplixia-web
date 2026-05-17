@@ -805,26 +805,209 @@
   }
   .amplixia-landing .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  .amplixia-landing /* Responsive */
-  @media (max-width: 900px) {
-    .nav-links { display: none; }
-    .hero { padding: 7rem 0 3rem; }
-    .hero-cta { flex-direction: column; align-items: stretch; }
-    .hero-cta .btn { justify-content: center; }
-    .hero-meta { gap: 2rem; }
-    .services-grid, .cases-grid, .insights-grid { grid-template-columns: 1fr; }
-    .why-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .audience-grid { grid-template-columns: repeat(2, 1fr); }
-    .process-grid { grid-template-columns: repeat(2, 1fr); }
-    .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
-    .footer-cols { grid-template-columns: repeat(2, 1fr); }
-    .testimonial { padding: 3rem 1.5rem; }
-    section { padding: 4rem 0; }
-    .cta-section { padding: 4rem 1.5rem; }
+  /* =================== Pull quote in "Why us" =================== */
+  .amplixia-landing .why-pullquote {
+    font-family: var(--font-display), 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--text);
+    margin-top: 2rem;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--primary);
+    line-height: 1.4;
   }
+  .amplixia-landing .why-pullquote-attr {
+    display: block;
+    font-style: normal;
+    font-family: var(--font-body), 'Manrope', sans-serif;
+    font-size: 0.875rem;
+    color: var(--text-mute);
+    margin-top: 0.75rem;
+  }
+
+  /* =================== Mobile hamburger & menu =================== */
+  .amplixia-landing .hamburger {
+    display: none;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: 1px solid var(--border-bright);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .amplixia-landing .hamburger:hover,
+  .amplixia-landing .hamburger:focus-visible {
+    background: rgba(255,255,255,0.05);
+    border-color: var(--text-dim);
+  }
+  .amplixia-landing .hamburger span {
+    position: absolute;
+    left: 12px; right: 12px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.2s ease, top 0.3s ease;
+  }
+  .amplixia-landing .hamburger span:nth-child(1) { top: 14px; }
+  .amplixia-landing .hamburger span:nth-child(2) { top: 21px; }
+  .amplixia-landing .hamburger span:nth-child(3) { top: 28px; }
+  .amplixia-landing .hamburger.is-open span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .amplixia-landing .hamburger.is-open span:nth-child(2) { opacity: 0; }
+  .amplixia-landing .hamburger.is-open span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+  .amplixia-landing .mobile-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 98;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .amplixia-landing .mobile-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .amplixia-landing .mobile-menu {
+    position: fixed;
+    top: 0; right: 0;
+    width: min(360px, 88vw);
+    height: 100dvh;
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    z-index: 99;
+    padding: 5.5rem 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .amplixia-landing .mobile-menu.is-open {
+    transform: translateX(0);
+    box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+  }
+  .amplixia-landing .mobile-menu-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 2rem;
+  }
+  .amplixia-landing .mobile-menu-links a {
+    display: block;
+    font-family: var(--font-display), "Fraunces", serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.2s, padding-left 0.2s;
+  }
+  .amplixia-landing .mobile-menu-links a:hover,
+  .amplixia-landing .mobile-menu-links a:focus-visible {
+    color: var(--primary-glow);
+    padding-left: 0.5rem;
+  }
+  .amplixia-landing .mobile-cta {
+    width: 100%;
+    justify-content: center;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+  .amplixia-landing .mobile-menu-foot {
+    margin-top: auto;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 0.875rem;
+  }
+  .amplixia-landing .mobile-menu-foot a { color: var(--text-dim); text-decoration: none; }
+  .amplixia-landing .mobile-menu-foot a:hover { color: var(--primary-glow); }
+
+  /* =================== Responsive: Tablet (<= 900px) =================== */
+  @media (max-width: 900px) {
+    .amplixia-landing .nav-links,
+    .amplixia-landing .nav-cta-desktop { display: none; }
+    .amplixia-landing .hamburger { display: inline-flex; }
+    .amplixia-landing .nav-inner { gap: 1rem; }
+    .amplixia-landing .hero { padding: 7rem 0 3rem; }
+    .amplixia-landing .hero h1 { font-size: clamp(2.5rem, 10vw, 4rem); }
+    .amplixia-landing .hero-cta { flex-direction: column; align-items: stretch; }
+    .amplixia-landing .hero-cta .btn { justify-content: center; padding: 1rem 1.5rem; font-size: 1rem; }
+    .amplixia-landing .hero-meta { gap: 1.5rem; flex-direction: column; }
+    .amplixia-landing .hero-meta-item { width: 100%; }
+    .amplixia-landing .services-grid,
+    .amplixia-landing .cases-grid,
+    .amplixia-landing .insights-grid { grid-template-columns: 1fr; }
+    .amplixia-landing .why-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .amplixia-landing .audience-grid { grid-template-columns: repeat(2, 1fr); }
+    .amplixia-landing .process-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .amplixia-landing .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
+    .amplixia-landing .footer-cols { grid-template-columns: repeat(2, 1fr); }
+    .amplixia-landing .testimonial { padding: 3rem 1.5rem; }
+    .amplixia-landing .testimonial::before { font-size: 8rem; top: -1rem; left: 1rem; }
+    .amplixia-landing section { padding: 4rem 0; }
+    .amplixia-landing .cta-section { padding: 4rem 1.5rem; }
+    .amplixia-landing .nav { padding: 0.875rem 0; }
+    /* Disable hover transforms on touch — they cause issues on tap */
+    .amplixia-landing .service-card:hover,
+    .amplixia-landing .case-card:hover,
+    .amplixia-landing .insight-card:hover { transform: none; }
+    /* Larger touch targets */
+    .amplixia-landing .btn { min-height: 44px; }
+    .amplixia-landing .audience-card { min-height: auto; padding: 1.25rem; }
+    /* Reduce marquee speed feel on smaller screens */
+    .amplixia-landing .marquee-item { font-size: 1.125rem; }
+    /* Smaller orbs on mobile to reduce paint */
+    .amplixia-landing .orb-1 { width: 320px; height: 320px; }
+    .amplixia-landing .orb-2 { width: 280px; height: 280px; }
+    .amplixia-landing .orb-3 { width: 380px; height: 380px; }
+    /* Logo a touch smaller */
+    .amplixia-landing .logo { font-size: 1.25rem; }
+    .amplixia-landing .section-head { margin-bottom: 2.5rem; }
+    /* Wordmark needs breathing room */
+    .amplixia-landing .wordmark { font-size: clamp(4rem, 22vw, 9rem); }
+  }
+
+  /* =================== Responsive: Mobile (<= 500px) =================== */
   @media (max-width: 500px) {
-    .container { padding: 0 1.25rem; }
-    .audience-grid, .process-grid, .why-stats { grid-template-columns: 1fr; }
-    .footer-cols { grid-template-columns: 1fr 1fr; }
-    .footer-bottom { flex-direction: column; text-align: center; }
+    .amplixia-landing .container { padding: 0 1.25rem; }
+    .amplixia-landing .audience-grid,
+    .amplixia-landing .process-grid,
+    .amplixia-landing .why-stats { grid-template-columns: 1fr; }
+    .amplixia-landing .footer-cols { grid-template-columns: 1fr 1fr; }
+    .amplixia-landing .footer-bottom { flex-direction: column; text-align: center; }
+    .amplixia-landing .hero { padding: 6rem 0 2rem; min-height: auto; }
+    .amplixia-landing .hero h1 { font-size: clamp(2.25rem, 11vw, 3rem); line-height: 1.05; }
+    .amplixia-landing .hero-sub { font-size: 1rem; }
+    .amplixia-landing .service-card { min-height: auto; padding: 1.75rem; }
+    .amplixia-landing .stat-card { padding: 1.5rem 1.25rem; }
+    .amplixia-landing .stat-num { font-size: 2.5rem; }
+    .amplixia-landing .case-body { padding: 1.5rem; }
+    .amplixia-landing .case-metric { font-size: 1.75rem; }
+    .amplixia-landing .testimonial-quote { font-size: 1.25rem; line-height: 1.4; }
+    .amplixia-landing .newsletter { max-width: 100%; flex-direction: column; }
+    .amplixia-landing .newsletter input { width: 100%; }
+    .amplixia-landing .newsletter button { width: 100%; padding: 0.75rem; }
+    .amplixia-landing .why-pullquote { font-size: 1rem !important; padding-left: 1rem !important; }
+  }
+
+  /* =================== Touch / pointer: coarse =================== */
+  @media (hover: none) and (pointer: coarse) {
+    .amplixia-landing .service-card::before { display: none; }
+    .amplixia-landing .audience-card:hover { background: var(--surface); border-color: var(--border); }
+    .amplixia-landing a, .amplixia-landing button { -webkit-tap-highlight-color: rgba(46, 91, 255, 0.25); }
   }
