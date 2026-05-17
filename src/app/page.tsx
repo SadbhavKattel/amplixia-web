@@ -71,63 +71,49 @@ export default function HomePage() {
     return () => handlers.forEach(([c, h]) => c.removeEventListener("mousemove", h));
   }, []);
 
-  // Hero metric count-ups
-  React.useEffect(() => {
-    const items = document.querySelectorAll<HTMLElement>(".hero-meta-item .num");
-    function countUp(el: HTMLElement, target: number, suffix = "", duration = 1400) {
-      const start = performance.now();
-      const step = (now: number) => {
-        const t = Math.min(1, (now - start) / duration);
-        const eased = 1 - Math.pow(1 - t, 3);
-        el.textContent = Math.floor(target * eased) + suffix;
-        if (t < 1) requestAnimationFrame(step);
-        else el.textContent = target + suffix;
-      };
-      requestAnimationFrame(step);
-    }
-    if (items[0]) countUp(items[0], 50, "+");
-    if (items[1]) {
-      const el = items[1];
-      const start = performance.now();
-      const step = (now: number) => {
-        const t = Math.min(1, (now - start) / 1400);
-        const eased = 1 - Math.pow(1 - t, 3);
-        el.textContent = "$" + Math.floor(120 * eased) + "M+";
-        if (t < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    }
-  }, []);
+  // (Hero metrics are qualitative text now — no count-up animation.)
 
-  const logos = ["NEXUS", "QUANTA", "ORBIT LABS", "VERTEX", "PRISM", "HELIOS", "AZIMUTH", "SOLARA", "CARBON·9", "FERMI"];
+  const logos = ["BEAUTY · COSMETICS", "TUTORING · EDTECH", "SOLOPRENEURS", "SMALL BUSINESS", "DTC BRANDS", "CREATORS"];
   const cases = [
-    { tag: "Aviation", img: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80", metric: "$6M / week", desc: "Revenue unlocked through dynamic pricing AI", name: "Vertex Aviation", body: "Real-time pricing engine trained on 12 years of route data. Deployed across 40 carriers." },
-    { tag: "Healthcare", img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80", metric: "90% reduction", desc: "In manual chart review overhead", name: "Helios Medical", body: "Multimodal AI pipeline for radiology triage. Now processing 200K scans/month." },
-    { tag: "Edtech", img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80", metric: "Top 1–2%", desc: "Student outcomes vs. national benchmark", name: "Quanta Learning", body: "Personalized tutoring agents across math and reading, K–12. Now serving 1.2M students." },
-    { tag: "Manufacturing", img: "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80", metric: "$18M / year", desc: "Saved through predictive maintenance", name: "Carbon·9 Industries", body: "Anomaly-detection models running on 2,400 sensors across 14 plants." },
+    {
+      tag: "Beauty · Brand site",
+      img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=80",
+      metric: "Live in 3 weeks",
+      desc: "From first call to launched storefront",
+      name: "Indie Makeup Brand",
+      body: "A modern, mobile-first website for a new makeup label — fast checkout, story-driven product pages, and a clean editorial feel.",
+    },
+    {
+      tag: "Education · AI workflow",
+      img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80",
+      metric: "24/7 tutoring",
+      desc: "Automated, personalised, always-on",
+      name: "AI Tutoring Service",
+      body: "Our own AI-powered tutoring workflow — students get instant, tailored explanations and practice. Built end-to-end, running today.",
+    },
   ];
   const stats = [
-    { num: "80+", label: "PhD-level engineers", desc: "Researchers from DeepMind, OpenAI, Stanford, MIT." },
-    { num: "12 wks", label: "To production", desc: "From kickoff to a live, scaling AI system." },
-    { num: "98%", label: "Client retention", desc: "Renewals and expansions year over year." },
-    { num: "$120M+", label: "Revenue accelerated", desc: "Measured impact across client portfolios." },
+    { num: "1:1", label: "Founder-led work", desc: "You work directly with the maker — no handoffs." },
+    { num: "2–4 wks", label: "From idea to live", desc: "Most projects ship within a month." },
+    { num: "Fixed", label: "Honest pricing", desc: "Clear scope, flat fee. No hourly surprises." },
+    { num: "AI-first", label: "Modern stack", desc: "Next.js, AI workflows, automation where it helps." },
   ];
   const audiences = [
-    { h: "Enterprise", p: "Embedded teams to ship AI at scale across F500 orgs." },
-    { h: "PE & Portfolios", p: "AI value-creation playbooks across portfolio companies." },
-    { h: "Mid-market", p: "End-to-end builds with measurable ROI in one quarter." },
-    { h: "Startups", p: "Founder-mode partners for seed to Series B AI-native teams." },
+    { h: "Beauty & Lifestyle Brands", p: "A modern, story-driven storefront that actually feels like your brand." },
+    { h: "Tutors & Educators", p: "AI tools to scale yourself — handle more students without burning out." },
+    { h: "Solopreneurs", p: "A clean site, an inbox automation, an AI assistant — done in weeks, not months." },
+    { h: "Small Businesses", p: "Replace clunky old sites and manual processes with something modern and AI-aware." },
   ];
   const process = [
-    { n: "01 — DISCOVER", h: "Two-week sprint", p: "We embed, map your data, and define what success means in dollars and days." },
-    { n: "02 — PROTOTYPE", h: "Working POC in 4 weeks", p: "An end-to-end prototype that proves the core hypothesis, not just a demo." },
-    { n: "03 — SHIP", h: "Production in 12 weeks", p: "Hardened, evaluated, observable. Deployed to your infra or ours." },
-    { n: "04 — SCALE", h: "Continuous evolution", p: "We stay on as embedded partners — measuring, iterating, expanding." },
+    { n: "01 — CHAT", h: "Free 20-min call", p: "Tell me what you’re building. I’ll tell you honestly if I can help — and what it’d cost." },
+    { n: "02 — SCOPE", h: "Fixed quote in 48 hrs", p: "A short plan with a flat price and a date you can hold me to. No surprises." },
+    { n: "03 — BUILD", h: "Shipped in 2–4 weeks", p: "Daily updates while I build. You see progress live, not at the end." },
+    { n: "04 — SUPPORT", h: "30 days included", p: "I stick around after launch to tweak, fix, and help you get going." },
   ];
   const insights = [
-    { img: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80", cat: "Research", read: "5 min read", title: "Ten lessons from a decade of applied AI", desc: "What we've learned shipping models into the wild — and what we'd never do again." },
-    { img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80", cat: "Engineering", read: "8 min read", title: "Evals are a moat. Here's why.", desc: "Why the teams winning the AI race are the ones obsessed with evaluation infra." },
-    { img: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80", cat: "Strategy", read: "6 min read", title: "The AI readiness gap", desc: "Most enterprises aren't model-limited. They're data-, ops-, and culture-limited." },
+    { img: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=80", cat: "Brand sites", read: "4 min read", title: "Why your indie brand needs more than a Shopify theme", desc: "The small design choices that make a new label feel premium instead of generic." },
+    { img: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80", cat: "AI tutoring", read: "6 min read", title: "How I built a 24/7 AI tutor that actually helps", desc: "Behind the scenes of the AI workflow powering Amplixia’s tutoring service." },
+    { img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80", cat: "Automation", read: "5 min read", title: "5 quick AI automations for small teams", desc: "Tiny workflows that save real hours — email triage, content drafts, lead replies." },
   ];
 
   return (
@@ -138,9 +124,9 @@ export default function HomePage() {
 
       <nav className="nav" id="nav">
         <div className="container nav-inner">
-          <a href="#" className="logo" onClick={() => setMobileOpen(false)}>
-            <span className="logo-dot" />
-            Amplixia
+          <a href="#" className="logo" onClick={() => setMobileOpen(false)} aria-label="Amplixia">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.svg" alt="Amplixia" className="logo-img" />
           </a>
           <ul className="nav-links">
             <li><a href="#work">Work</a></li>
@@ -199,33 +185,34 @@ export default function HomePage() {
       <header className="hero">
         <div className="container hero-content">
           <h1 className="hero-h1">
-            <span className="word">We</span>{" "}
-            <span className="word">solve</span>{" "}
-            <span className="word"><span className="serif-italic">hard</span></span>{" "}
-            <span className="word">problems</span>
+            <span className="word">Modern</span>{" "}
+            <span className="word">brands.</span>
             <br />
+            <span className="word"><span className="serif-italic">Smarter</span></span>{" "}
+            <span className="word">learning.</span>
+            <br />
+            <span className="word">Built</span>{" "}
             <span className="word">with</span>{" "}
-            <span className="word accent-word"><span className="accent">frontier</span></span>{" "}
             <span className="word accent-word"><span className="accent">AI.</span></span>
           </h1>
           <p className="hero-sub fade-up">
-            Strategy, automation, and production AI systems — shipped in weeks, not quarters. Built by scientists, engineered for scale.
+            A small studio building beautiful brand websites and AI-powered tutoring tools. Founder-led, hands-on, shipped in weeks.
           </p>
           <div className="hero-cta fade-up">
-            <a href="#contact" className="btn btn-primary">Bring us your problem <span className="btn-arrow">→</span></a>
-            <a href="#work" className="btn btn-ghost">See the work</a>
+            <a href="#contact" className="btn btn-primary">Start a project <span className="btn-arrow">→</span></a>
+            <a href="#work" className="btn btn-ghost">See our work</a>
           </div>
           <div className="hero-meta">
-            <div className="hero-meta-item"><div className="num">50+</div><div className="desc">Production AI systems shipped</div></div>
-            <div className="hero-meta-item"><div className="num">$120M+</div><div className="desc">Client revenue accelerated</div></div>
-            <div className="hero-meta-item"><div className="num">12 wks</div><div className="desc">Avg. time to production</div></div>
+            <div className="hero-meta-item"><div className="num">Founder-led</div><div className="desc">Direct work with the maker — no agency layers</div></div>
+            <div className="hero-meta-item"><div className="num">2–4 weeks</div><div className="desc">From first call to a live site or workflow</div></div>
+            <div className="hero-meta-item"><div className="num">AI-native</div><div className="desc">Modern tooling, automated where it matters</div></div>
           </div>
         </div>
       </header>
 
       <section className="marquee-section">
         <div className="container">
-          <div className="marquee-label">Trusted by category leaders worldwide</div>
+          <div className="marquee-label">Built for emerging brands &amp; modern learners</div>
         </div>
         <div className="marquee">
           <div className="marquee-track">
@@ -240,14 +227,14 @@ export default function HomePage() {
         <div className="container">
           <div className="testimonial reveal">
             <p className="testimonial-quote">
-              &ldquo;Amplixia is our secret weapon. They shipped a production AI system in six weeks that our internal team couldn&apos;t deliver in a year.&rdquo;
+              &ldquo;Sadbhav rebuilt our makeup brand site from scratch — it looks beautiful, loads instantly, and our launch week traffic actually converted. Couldn&apos;t recommend more.&rdquo;
             </p>
             <div className="testimonial-author">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img className="testimonial-avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop" alt="Sarah Chen" />
+              <img className="testimonial-avatar" src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&h=200&fit=crop" alt="Founder" />
               <div style={{ textAlign: "left" }}>
-                <div className="testimonial-name">Sarah Chen</div>
-                <div className="testimonial-role">VP of Product, Vertex Aviation</div>
+                <div className="testimonial-name">Brand Founder</div>
+                <div className="testimonial-role">Indie Makeup Label · 2025</div>
               </div>
             </div>
           </div>
@@ -258,8 +245,8 @@ export default function HomePage() {
         <div className="container">
           <div className="section-head reveal">
             <span className="label">Recent work</span>
-            <h2>Outcomes over output.</h2>
-            <p>We measure ourselves by what we ship, and what it earns for our clients.</p>
+            <h2>What we&apos;ve shipped so far.</h2>
+            <p>A small slate of projects — but each one done carefully, end to end.</p>
           </div>
           <div className="cases-grid">
             {cases.map((c, i) => (
@@ -284,48 +271,48 @@ export default function HomePage() {
       <section id="services">
         <div className="container">
           <div className="section-head reveal">
-            <span className="label">How we work</span>
-            <h2>Three ways in.</h2>
-            <p>Most engagements start small — a strategy sprint or a proof of concept. Then we scale what works.</p>
+            <span className="label">What we do</span>
+            <h2>Three ways we can help.</h2>
+            <p>Pick one, or combine them. Every project is hands-on and shipped quickly.</p>
           </div>
           <div className="services-grid">
             <div className="service-card reveal">
-              <div className="service-num">01 / STRATEGY</div>
+              <div className="service-num">01 / BRAND SITES</div>
               <div className="service-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18M9 21V9" /></svg>
               </div>
-              <h3>AI Strategy</h3>
-              <p>Where can AI move the needle? We tell you in 2 weeks.</p>
+              <h3>Brand Websites</h3>
+              <p>Beautiful, fast, conversion-focused sites for indie brands and small businesses.</p>
               <ul>
-                <li>Readiness assessments</li>
-                <li>Opportunity sizing</li>
-                <li>Org &amp; data design</li>
+                <li>Editorial design</li>
+                <li>Mobile-first &amp; SEO ready</li>
+                <li>Live in 2–4 weeks</li>
               </ul>
             </div>
             <div className="service-card reveal">
-              <div className="service-num">02 / BUILD</div>
+              <div className="service-num">02 / AI TUTORING</div>
               <div className="service-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" /></svg>
               </div>
-              <h3>Production AI</h3>
-              <p>Custom agents, RAG systems, and fine-tuned models — shipped to prod in weeks.</p>
+              <h3>AI Tutoring</h3>
+              <p>An automated AI workflow that gives students personalised explanations &amp; practice 24/7.</p>
               <ul>
-                <li>Custom agents &amp; workflows</li>
-                <li>Fine-tuned models</li>
-                <li>Full-stack AI products</li>
+                <li>Subject-aware tutoring</li>
+                <li>Instant feedback</li>
+                <li>Parent-friendly progress</li>
               </ul>
             </div>
             <div className="service-card reveal">
-              <div className="service-num">03 / RESEARCH</div>
+              <div className="service-num">03 / AUTOMATION</div>
               <div className="service-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1.1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" /></svg>
               </div>
-              <h3>Applied Research</h3>
-              <p>Frontier R&amp;D for problems no off-the-shelf model can solve.</p>
+              <h3>AI Automation</h3>
+              <p>Small automations that quietly save your team hours every week — emails, content, ops.</p>
               <ul>
-                <li>Novel architectures</li>
-                <li>Alignment &amp; evaluation</li>
-                <li>Multimodal systems</li>
+                <li>Workflow design</li>
+                <li>Custom AI prompts</li>
+                <li>Plug-in to your tools</li>
               </ul>
             </div>
           </div>
@@ -337,11 +324,11 @@ export default function HomePage() {
           <div className="why-grid">
             <div className="why-text reveal">
               <span className="label">Why Amplixia</span>
-              <h2 style={{ marginTop: "1.5rem" }}>Scientists <span className="serif-italic">who ship.</span></h2>
-              <p>We&apos;re a bootstrapped team of 80 researchers and engineers. No middle management. No bloat. Founder-level mentality from day one.</p>
+              <h2 style={{ marginTop: "1.5rem" }}>A small studio, <span className="serif-italic">built to ship.</span></h2>
+              <p>Amplixia is an early-stage studio. Right now it&apos;s a founder and a focused craft: build modern brand sites and useful AI tools — quickly, carefully, and without the agency markup.</p>
               <p className="why-pullquote">
-                &ldquo;The most constructive version of AI alignment work I&apos;ve seen — they ship things that actually matter.&rdquo;
-                <span className="why-pullquote-attr">— Emmett Shear, former CEO, OpenAI (interim)</span>
+                &ldquo;Big enough to ship serious work. Small enough that the person you talk to is the one building it.&rdquo;
+                <span className="why-pullquote-attr">— Sadbhav Kattel, Founder</span>
               </p>
             </div>
             <div className="why-stats reveal">
@@ -361,7 +348,7 @@ export default function HomePage() {
         <div className="container">
           <div className="section-head reveal">
             <span className="label">Who we work with</span>
-            <h2>From seed to S&amp;P 500.</h2>
+            <h2>Built for the people we like working with.</h2>
           </div>
           <div className="audience-grid">
             {audiences.map((a, i) => (
@@ -424,11 +411,11 @@ export default function HomePage() {
       <section id="contact" style={{ padding: "4rem 0 7rem" }}>
         <div className="container">
           <div className="cta-section reveal">
-            <span className="label">Let&apos;s build</span>
-            <h2>Bring us the <span className="accent">hard</span> problem.</h2>
-            <p>30-minute strategy call. No pitch deck — just answers.</p>
+            <span className="label">Let&apos;s talk</span>
+            <h2>Got an idea? <span className="accent">Let&apos;s build it.</span></h2>
+            <p>A free 20-minute call. No pressure, no pitch deck — just a quick chat.</p>
             <div className="cta-buttons">
-              <a href="mailto:hello@amplixia.ai" className="btn btn-primary">Book a call <span className="btn-arrow">→</span></a>
+              <a href="mailto:hello@amplixia.ai" className="btn btn-primary">Email me <span className="btn-arrow">→</span></a>
               <a href="#work" className="btn btn-ghost">See the work first</a>
             </div>
           </div>
@@ -439,8 +426,11 @@ export default function HomePage() {
         <div className="container">
           <div className="footer-top">
             <div className="footer-brand">
-              <a href="#" className="logo"><span className="logo-dot" />Amplixia</a>
-              <p>Scientists who ship. Frontier AI for ambitious teams.</p>
+              <a href="#" className="logo" aria-label="Amplixia">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/logo.svg" alt="Amplixia" className="logo-img" />
+              </a>
+              <p>A small studio building modern brand sites and AI-powered tools.</p>
               <form
                 className="newsletter"
                 onSubmit={(e) => {
@@ -460,37 +450,27 @@ export default function HomePage() {
               <div className="footer-col">
                 <h4>Services</h4>
                 <ul>
-                  <li><a href="#services">AI Strategy</a></li>
-                  <li><a href="#services">Production AI</a></li>
-                  <li><a href="#services">Applied Research</a></li>
-                  <li><a href="#audience">For Enterprise</a></li>
+                  <li><a href="#services">Brand Websites</a></li>
+                  <li><a href="#services">AI Tutoring</a></li>
+                  <li><a href="#services">AI Automation</a></li>
                 </ul>
               </div>
               <div className="footer-col">
-                <h4>Company</h4>
+                <h4>Studio</h4>
                 <ul>
                   <li><a href="#why">About</a></li>
-                  <li><a href="#work">Case studies</a></li>
-                  <li><a href="#insights">Insights</a></li>
-                  <li><a href="/careers">Careers</a></li>
+                  <li><a href="#work">Work</a></li>
+                  <li><a href="#process">Process</a></li>
+                  <li><a href="#insights">Notes</a></li>
                 </ul>
               </div>
               <div className="footer-col">
-                <h4>Resources</h4>
-                <ul>
-                  <li><a href="#">AI Readiness Quiz</a></li>
-                  <li><a href="#">Whitepapers</a></li>
-                  <li><a href="#">Newsletter</a></li>
-                  <li><a href="#">Press kit</a></li>
-                </ul>
-              </div>
-              <div className="footer-col">
-                <h4>Contact</h4>
+                <h4>Connect</h4>
                 <ul>
                   <li><a href="mailto:hello@amplixia.ai">hello@amplixia.ai</a></li>
-                  <li><a href="#">San Francisco</a></li>
-                  <li><a href="#">London</a></li>
-                  <li><a href="#">Singapore</a></li>
+                  <li><a href="#contact">Start a project</a></li>
+                  <li><a href="#" aria-label="Twitter">Twitter</a></li>
+                  <li><a href="#" aria-label="LinkedIn">LinkedIn</a></li>
                 </ul>
               </div>
             </div>

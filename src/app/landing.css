@@ -805,6 +805,26 @@
   }
   .amplixia-landing .reveal.visible { opacity: 1; transform: translateY(0); }
 
+  /* =================== Logo image (SVG wordmark) =================== */
+  .amplixia-landing .logo {
+    /* keep the layout structure but the image is the whole brand */
+    gap: 0;
+    font-size: 0;
+    line-height: 0;
+  }
+  .amplixia-landing .logo-img {
+    display: block;
+    height: 28px;
+    width: auto;
+    transition: opacity 0.2s;
+  }
+  .amplixia-landing .logo:hover .logo-img { opacity: 0.85; }
+  /* Hide the legacy pulsing dot wherever it may still be in DOM */
+  .amplixia-landing .logo .logo-dot { display: none; }
+
+  /* Footer now has 3 columns instead of 4 */
+  .amplixia-landing .footer-cols { grid-template-columns: repeat(3, 1fr); }
+
   /* =================== Pull quote in "Why us" =================== */
   .amplixia-landing .why-pullquote {
     font-family: var(--font-display), 'Fraunces', serif;
