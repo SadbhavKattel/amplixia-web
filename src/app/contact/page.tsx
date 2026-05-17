@@ -44,7 +44,7 @@ export default function ContactPage() {
                   } else {
                     alert("Something went wrong. Please try again.");
                   }
-                } catch (err) {
+                } catch {
                   alert("Failed to send message.");
                 } finally {
                   setIsSubmitting(false);

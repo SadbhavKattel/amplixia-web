@@ -47,8 +47,6 @@ export default function HomePage() {
     };
   }, []);
 
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [isSubmitted, setIsSubmitted] = React.useState(false);
 
   // Spotlight on service cards
   React.useEffect(() => {
