@@ -13,18 +13,25 @@ export async function POST(req: Request) {
     const resend = new Resend(apiKey);
     const { name, email, business, details, budget } = await req.json();
 
-    if (!name || !email || !business || !details || !budget) {
+    const cleanEmail = typeof email === 'string' ? email.trim() : '';
+
+    if (!name || !cleanEmail || !business || !details || !budget) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(cleanEmail)) {
+      return NextResponse.json({ error: "Invalid email address format. Please enter a valid email (e.g. you@example.com)." }, { status: 400 });
     }
 
     const { data, error } = await resend.emails.send({
       from: 'Contact Form <onboarding@resend.dev>',
       to: ['services@amplixia.com'],
-      replyTo: email,
+      replyTo: cleanEmail,
       subject: `${business} - ${name}`,
       html: `
         <h2>New Contact Form Submission</h2>
-        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Email:</strong> ${cleanEmail}</p>
         <p><strong>Budget:</strong> ${budget}</p>
         <br/>
         <h3>Project Details:</h3>
