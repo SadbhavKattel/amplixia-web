@@ -43,7 +43,8 @@ export default function ContactPage() {
                     form.reset();
                     setTimeout(() => setIsSubmitted(false), 3000);
                   } else {
-                    alert("Something went wrong. Please try again.");
+                    const errData = await res.json();
+                    alert(errData.error || "Something went wrong. Please try again.");
                   }
                 } catch {
                   alert("Failed to send message.");
